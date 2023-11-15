@@ -1,6 +1,10 @@
+#Phillip Thoendel - Table Queries - 11/9/2023
+
+#this script from a previous assignment allows for the connection of python with SQL
 import mysql.connector
 from mysql.connector import errorcode
 
+#takes creds for db
 config = {
     "user": "root",
     "password": "Pa55w0rd",
@@ -16,6 +20,7 @@ try:
 
     input("\n\n Press any key to continue... \n")
 
+#error codes for incorrect creds
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
         print(" The supplied username or password are invalid")
@@ -26,16 +31,17 @@ except mysql.connector.Error as err:
     else:
         print(err)
 
-#finally:
- #   db.close()
 
 #init cursor
 cursor = db.cursor()
+
 #tell cursor what to do
 cursor.execute("SELECT * FROM studio")  
 movies = cursor.fetchall()
+
 #header for query
 print("-- DISPLAYING Studio RECORDS --")
+
 #print query results
 for studio in movies:
     
@@ -73,3 +79,4 @@ print("-- DISPLAYING Director RECORDS in Order --")
 
 for film in movies:
     print("Film Name : {}\n Director:{}\n".format(film[1], film[4])) 
+
